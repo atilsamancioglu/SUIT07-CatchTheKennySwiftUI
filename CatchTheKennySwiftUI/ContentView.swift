@@ -101,7 +101,7 @@ struct ContentView : View {
         Image("kenny")
         .resizable()
         .frame(width: 100, height: 130)
-            .position(x: Length(self.chosenX), y: Length(self.chosenY))
+            .position(x: CGFloat(self.chosenX), y: CGFloat(self.chosenY))
             .gesture(TapGesture(count: 1).onEnded({ (_) in
                 //
                 self.score += 1
@@ -112,12 +112,21 @@ struct ContentView : View {
             }
        
         Spacer()
-        }.presentation($showAlert){
+        }.alert(isPresented: $showAlert){
+            
+            return Alert(title: Text("Timer Over"), message: Text("Want to Play Again?"), primaryButton: Alert.Button.default(Text("OK"),action: {
+                self.score = 0
+                self.timeLeft = 10.0
+            }
+            ), secondaryButton: Alert.Button.cancel())
+            
+            /*
             return Alert(title: Text("Time Over!"), message: Text("Want to play again?"), primaryButton: Alert.Button.default(Text("OK"), onTrigger: {
                 //Replay function
                 self.score = 0
                 self.timeLeft = 10.0
             }), secondaryButton: Alert.Button.cancel())
+ */
         }
         
         
