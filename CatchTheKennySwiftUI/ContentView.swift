@@ -27,23 +27,20 @@ struct ContentView : View {
     let (x8,y8) = (70,-100)
     let (x9,y9) = (330,-100)
     
+    
     var counterTimer : Timer {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            
             if self.timeLeft < 0.5 {
-                self.timer.invalidate()
-                self.counterTimer.invalidate()
                 self.showAlert = true
             } else {
                 self.timeLeft -= 1
             }
-            
         }
     }
     
     var timer : Timer {
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
             //
           
             let tupleArray = [(self.x1,self.y1),(self.x2,self.y2),(self.x3,self.y3),(self.x4,self.y4),(self.x5,self.y5),(self.x6,self.y6),(self.x7,self.y7),(self.x8,self.y8),(self.x9,self.y9)]
@@ -112,21 +109,12 @@ struct ContentView : View {
             }
        
         Spacer()
-        }.alert(isPresented: $showAlert){
-            
-            return Alert(title: Text("Timer Over"), message: Text("Want to Play Again?"), primaryButton: Alert.Button.default(Text("OK"),action: {
-                self.score = 0
-                self.timeLeft = 10.0
-            }
-            ), secondaryButton: Alert.Button.cancel())
-            
-            /*
-            return Alert(title: Text("Time Over!"), message: Text("Want to play again?"), primaryButton: Alert.Button.default(Text("OK"), onTrigger: {
-                //Replay function
+        }.alert(isPresented: $showAlert) {
+            return Alert(title: Text("Time Over!"), message: Text("Want to Play Again?"), primaryButton: Alert.Button.default(Text("OK"), action: {
+                //OK Button Action
                 self.score = 0
                 self.timeLeft = 10.0
             }), secondaryButton: Alert.Button.cancel())
- */
         }
         
         
